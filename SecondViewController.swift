@@ -5,24 +5,26 @@
 //  Created by Rashmi Ananth on 1/25/20.
 //  Copyright © 2020 Rashmi Ananth. All rights reserved.
 //
-
 import UIKit
+
+struct Times {
+    static var times = [Float]()
+}
 
 class SecondViewController: UIViewController {
     
     
     var timer = Timer()
     var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
-
+    
     @IBOutlet weak var output: UILabel!
     
     @IBAction func save(_ sender: Any) {
         output.text = timeLabel.text
         
         UserDefaults.standard.set(timeLabel.text, forKey: "myShowerTimes")
-          
-      }
-  
+    }
+    
     
     @IBOutlet weak var timeLabel: UILabel!
     
@@ -93,4 +95,3 @@ class SecondViewController: UIViewController {
     
     
 }
-
