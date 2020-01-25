@@ -14,7 +14,16 @@ class SecondViewController: UIViewController {
     var timer = Timer()
     var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
 
-
+    @IBOutlet weak var output: UILabel!
+    
+    @IBAction func save(_ sender: Any) {
+        output.text = timeLabel.text
+        
+        UserDefaults.standard.set(timeLabel.text, forKey: "myShowerTimes")
+          
+      }
+  
+    
     @IBOutlet weak var timeLabel: UILabel!
     
     @IBOutlet weak var fractionsLabel: UILabel!
@@ -72,7 +81,11 @@ class SecondViewController: UIViewController {
         fractionsLabel.text = ".\(fractions)"
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        if let x = UserDefaults.standard.object(forKey: "myShowerTimes") as? String {
+            output.text = x
+        }
+    }
     
     
     
