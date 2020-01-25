@@ -12,10 +12,8 @@ struct Times {
 }
 
 class SecondViewController: UIViewController {
-    
-    
     var timer = Timer()
-    var (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+    var (hours, minutes, seconds) = (0, 0, 0)
     
     @IBOutlet weak var output: UILabel!
     
@@ -28,13 +26,11 @@ class SecondViewController: UIViewController {
     
     @IBOutlet weak var timeLabel: UILabel!
     
-    @IBOutlet weak var fractionsLabel: UILabel!
-    
     @IBOutlet weak var startOutlet: UIButton!
     
     @IBAction func start(_ sender: UIButton) {
         
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(SecondViewController.keepTimer), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(SecondViewController.keepTimer), userInfo: nil, repeats: true)
         
         startOutlet.isHidden = true
     }
@@ -46,11 +42,10 @@ class SecondViewController: UIViewController {
     }
     
     
-    @IBAction func stop(_ sender: UIButton) {
+    @IBAction func cancel(_ sender: UIButton) {
         timer.invalidate()
-        (hours, minutes, seconds, fractions) = (0, 0, 0, 0)
+        /*(hours, minutes, seconds) = (0, 0, 0, 0)*/
         timeLabel.text = "00:00:00"
-        fractionsLabel.text = ".00"
         startOutlet.isHidden = false
     }
     
@@ -58,11 +53,7 @@ class SecondViewController: UIViewController {
     
     @objc func keepTimer() {
         
-        fractions += 1
-        if (fractions > 99) {
-            seconds += 1
-            fractions = 0
-        }
+        seconds += 1
         if (seconds == 60) {
             minutes += 1
             seconds = 0
@@ -80,7 +71,6 @@ class SecondViewController: UIViewController {
         let hoursString = hours > 9 ? "\(hours)" : "0\(hours)"
         
         timeLabel.text = "\(hoursString):\(minutesString):\(secondsString)"
-        fractionsLabel.text = ".\(fractions)"
     }
     
     override func viewDidAppear(_ animated: Bool) {
